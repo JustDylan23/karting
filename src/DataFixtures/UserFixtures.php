@@ -20,18 +20,18 @@ class UserFixtures extends Fixture
     {
         $user = new User();
 
-        $user->setVoorletters('T');
-        $user->setTussenvoegsel('van der');
-        $user->setAchternaam('Hout');
+        $user->setInitials('T');
+        $user->setLastName('User');
 
         $user->setUsername('test_user');
         $user->setEmail('test_user@mail.com');
         $user->setPassword($this->userPasswordEncoder->encodePassword($user, 'test_user'));
+        $user->setRoles(['ROLE_USER']);
 
-        $user->setTelefoon('06 1234 5678');
-        $user->setAdres('Straatnaam 01');
-        $user->setWoonplaats('Woonplaats');
-        $user->setPostcode('1234AB');
+        $user->setPhoneNumber('06 1234 5678');
+        $user->setAddress('Straatnaam 01');
+        $user->setCity('Woonplaats');
+        $user->setPostalCode('1234AB');
 
         $manager->persist($user);
         $manager->flush();
@@ -39,19 +39,18 @@ class UserFixtures extends Fixture
 
         $user = new User();
 
-        $user->setVoorletters('T');
-        $user->setTussenvoegsel('van der');
-        $user->setAchternaam('Hout');
+        $user->setInitials('T');
+        $user->setLastName('Admin');
 
         $user->setUsername('test_admin');
         $user->setEmail('test_admin@mail.com');
         $user->setPassword($this->userPasswordEncoder->encodePassword($user, 'test_admin'));
         $user->setRoles(['ROLE_ADMIN']);
 
-        $user->setTelefoon('06 1234 5678');
-        $user->setAdres('Straatnaam 01');
-        $user->setWoonplaats('Woonplaats');
-        $user->setPostcode('1234AB');
+        $user->setPhoneNumber('06 1234 5678');
+        $user->setAddress('Straatnaam 01');
+        $user->setCity('Woonplaats');
+        $user->setPostalCode('1234AB');
 
         $manager->persist($user);
         $manager->flush();

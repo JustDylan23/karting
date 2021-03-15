@@ -22,14 +22,14 @@
             {% for activiteit in activiteiten %}
                 <tr>
                     <td>
-                        {{ activiteit.datum|date("d-m-Y")}}
+                        {{ activiteit.date|date("d-m-Y")}}
                     </td>
                     <td>
-                        {{ activiteit.tijd|date("H:i")}}
+                        {{ activiteit.time|date("H:i")}}
                     </td>
 
                     <td>
-                        {{ activiteit.soort.naam}}
+                        {{ activiteit.activityType.name}}
                     </td>
                     <td>
                         {{ activiteit.users|length}}

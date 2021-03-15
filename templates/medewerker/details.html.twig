@@ -12,15 +12,15 @@
             <caption>Activiteit</caption>
             <tr >
                 <td>soort</td>
-                <td class="text-primary">{{ activiteit.soort.naam}}</td>
+                <td class="text-primary">{{ activiteit.activityType.name}}</td>
             </tr>
             <tr>
                 <td>datum:</td>
-                <td>{{ activiteit.datum|date("d-m-Y")}} </td>
+                <td>{{ activiteit.date|date("d-m-Y")}} </td>
             </tr>
             <tr >
                 <td>tijd:</td>
-                <td>{{ activiteit.tijd|date("h:i")}}</td>
+                <td>{{ activiteit.time|date("h:i")}}</td>
             </tr>
 
 
@@ -42,14 +42,12 @@
 
                 {% for deelnemer in deelnemers %}
                 <tr>
-
-                    <td>{{ deelnemer.naam}}</td>
-                    <td> {{ deelnemer.adres}}</td>
-                    <td> {{ deelnemer.postcode}}</td>
-                    <td>{{ deelnemer.woonplaats}}</td>
+                    <td>{{ deelnemer.name}}</td>
+                    <td>{{ deelnemer.address}}</td>
+                    <td>{{ deelnemer.postalCode}}</td>
+                    <td>{{ deelnemer.city}}</td>
                     <td>{{ deelnemer.email}}</td>
-                    <td>{{ deelnemer.telefoon}}</td>
-
+                    <td>{{ deelnemer.phoneNumber}}</td>
                 </tr>
                 {% endfor %}
 

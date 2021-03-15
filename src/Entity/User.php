@@ -2,22 +2,24 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Repository\UserRepository;
 
 /**
- * @ORM\Table(name="app_users")
- * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass=UserRepository::class)
+ *
  * @UniqueEntity("username")
+ * @UniqueEntity("email")
  */
-class User implements UserInterface, \Serializable
+class User implements UserInterface
 {
     /**
-     * @ORM\Column(type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue()
+     * @ORM\Id @ORM\GeneratedValue @ORM\Column(type="integer")
      */
     private $id;
 
@@ -36,6 +38,7 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=60, unique=false)
+     *
      * @Assert\Email(message = "The email '{{ value }}' is geen geldig email adres")
      * @Assert\NotBlank(message="vul emailadres in")
      */
@@ -45,7 +48,7 @@ class User implements UserInterface, \Serializable
      * @Assert\Length(max=30)
      * @Assert\NotBlank(message="vul wachtwoord in")
      */
-    private $plainPassword;
+    public $plainPassword;
 
     /**
      * @ORM\Column(type="json")
@@ -58,14 +61,14 @@ class User implements UserInterface, \Serializable
      * @Assert\NotBlank(message="vul voorletters in")
      * @Assert\Length(max="10")
      */
-    private $voorletters;
+    private $initials;
 
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
      *
      * @Assert\Length(max="10")
      */
-    private $tussenvoegsel;
+    private $insertion;
 
     /**
      * @ORM\Column(type="string", length=25)
@@ -73,7 +76,7 @@ class User implements UserInterface, \Serializable
      *
      * @Assert\Length(max="25")
      */
-    private $achternaam;
+    private $lastName;
 
     /**
      * @ORM\Column(type="string", length=25)
@@ -81,7 +84,7 @@ class User implements UserInterface, \Serializable
      * @Assert\NotBlank(message="vul adres in")
      * @Assert\Length(max="25")
      */
-    private $adres;
+    private $address;
 
     /**
      * @ORM\Column(type="string", length=7)
@@ -89,7 +92,7 @@ class User implements UserInterface, \Serializable
      * @Assert\NotBlank(message="vul postcode in")
      * @Assert\Length(max="7")
      */
-    private $postcode;
+    private $postalCode;
 
     /**
      * @ORM\Column(type="string", length=20)
@@ -97,7 +100,7 @@ class User implements UserInterface, \Serializable
      * @Assert\NotBlank(message="vul woonplaats in")
      * @Assert\Length(max="20")
      */
-    private $woonplaats;
+    private $city;
 
     /**
      * @ORM\Column(type="string", length=15)
@@ -105,202 +108,50 @@ class User implements UserInterface, \Serializable
      * @Assert\NotBlank(message="vul telfoonnummer in")
      * @Assert\Length(max="15")
      */
-    private $telefoon;
+    private $phoneNumber;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Activity::class, inversedBy="users")
+     */
+    private $activities;
 
-    public function getId()
+    public function __construct()
+    {
+        $this->activities = new ArrayCollection();
+    }
+
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    function getNaam()
+    public function getFullName(): string
     {
-        return $this->voorletters . " " . $this->tussenvoegsel . " " . $this->achternaam;
+        return $this->initials . ' ' . $this->insertion . ' ' . $this->lastName;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getVoorletters()
-    {
-        return $this->voorletters;
-    }
-
-    /**
-     * @param mixed $voorletters
-     */
-    public function setVoorletters($voorletters)
-    {
-        $this->voorletters = $voorletters;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTussenvoegsel()
-    {
-        return $this->tussenvoegsel;
-    }
-
-    /**
-     * @param mixed $tussenvoegsel
-     */
-    public function setTussenvoegsel($tussenvoegsel)
-    {
-        $this->tussenvoegsel = $tussenvoegsel;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAchternaam()
-    {
-        return $this->achternaam;
-    }
-
-    /**
-     * @param mixed $achternaam
-     */
-    public function setAchternaam($achternaam)
-    {
-        $this->achternaam = $achternaam;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAdres()
-    {
-        return $this->adres;
-    }
-
-    /**
-     * @param mixed $adres
-     */
-    public function setAdres($adres)
-    {
-        $this->adres = $adres;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPostcode()
-    {
-        return $this->postcode;
-    }
-
-    /**
-     * @param mixed $postcode
-     */
-    public function setPostcode($postcode)
-    {
-        $this->postcode = $postcode;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getWoonplaats()
-    {
-        return $this->woonplaats;
-    }
-
-    /**
-     * @param mixed $woonplaats
-     */
-    public function setWoonplaats($woonplaats)
-    {
-        $this->woonplaats = $woonplaats;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTelefoon()
-    {
-        return $this->telefoon;
-    }
-
-    /**
-     * @param mixed $telefoon
-     */
-    public function setTelefoon($telefoon)
-    {
-        $this->telefoon = $telefoon;
-    }
-
-
-    /**
-     * Many Users have Many Activities.
-     * @ORM\ManyToMany(targetEntity="Activiteit", inversedBy="users")
-     * @ORM\JoinTable(name="deelnames")
-     */
-    private $activiteiten;
-
-    public function __construct()
-    {
-        $this->activiteiten = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->isActive = true;
-    }
-
-    public function addActiviteit(Activiteit $a)
-    {
-        if ($this->activiteiten->contains($a)) {
-
-            return;
-        }
-
-        $this->activiteiten->add($a);
-
-    }
-
-    public function removeActiviteit(Activiteit $a)
-    {
-        if (!$this->activiteiten->contains($a)) {
-            return;
-        }
-        $this->activiteiten->removeElement($a);
-    }
-
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    public function setEmail($email)
-    {
-        $this->email = $email;
-    }
-
-    public function getUsername()
+    public function getUsername(): ?string
     {
         return $this->username;
     }
 
-    public function setUsername($username)
+    public function setUsername(string $username): self
     {
         $this->username = $username;
+
+        return $this;
     }
 
-    public function getPassword()
+    public function getPassword(): ?string
     {
         return $this->password;
     }
 
-    public function setPassword($password)
+    public function setPassword(string $password): self
     {
         $this->password = $password;
-    }
 
-    public function getPlainPassword()
-    {
-        return $this->plainPassword;
-    }
-
-    public function setPlainPassword($password)
-    {
-        $this->plainPassword = $password;
+        return $this;
     }
 
     public function getSalt()
@@ -310,47 +161,144 @@ class User implements UserInterface, \Serializable
         return null;
     }
 
-    public function getRoles()
-    {
-        $roles = $this->roles;
-        //$roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
-    }
-
-    public function setRoles(array $roles)
-    {
-        $this->roles = $roles;
-
-        // allows for chaining
-        return $this;
-    }
-
     public function eraseCredentials()
     {
     }
 
-    /** @see \Serializable::serialize() */
-    public function serialize()
+    public function getEmail(): ?string
     {
-        return serialize([
-            $this->id,
-            $this->username,
-            $this->password,
-// see section on salt below
-// $this->salt,
-        ]);
+        return $this->email;
     }
 
-    /** @see \Serializable::unserialize() */
-    public function unserialize($serialized)
+    public function setEmail(string $email): self
     {
-        list (
-            $this->id,
-            $this->username,
-            $this->password,
-// see section on salt below
-// $this->salt
-            ) = unserialize($serialized);
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getRoles(): array
+    {
+//        $roles = $this->roles;
+//        $roles[] = 'ROLE_USER';
+//
+//        return array_unique($roles);
+
+        return $this->roles;
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getInitials(): ?string
+    {
+        return $this->initials;
+    }
+
+    public function setInitials(string $initials): self
+    {
+        $this->initials = $initials;
+
+        return $this;
+    }
+
+    public function getInsertion(): ?string
+    {
+        return $this->insertion;
+    }
+
+    public function setInsertion(?string $insertion): self
+    {
+        $this->insertion = $insertion;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): self
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getPostalCode(): ?string
+    {
+        return $this->postalCode;
+    }
+
+    public function setPostalCode(string $postalCode): self
+    {
+        $this->postalCode = $postalCode;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getPhoneNumber(): ?string
+    {
+        return $this->phoneNumber;
+    }
+
+    public function setPhoneNumber(string $phoneNumber): self
+    {
+        $this->phoneNumber = $phoneNumber;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Activity[]
+     */
+    public function getActivities(): Collection
+    {
+        return $this->activities;
+    }
+
+    public function addActivity(Activity $activity): self
+    {
+        if (!$this->activities->contains($activity)) {
+            $this->activities[] = $activity;
+        }
+
+        return $this;
+    }
+
+    public function removeActivity(Activity $activity): self
+    {
+        $this->activities->removeElement($activity);
+
+        return $this;
     }
 }

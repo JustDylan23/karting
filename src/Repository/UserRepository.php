@@ -12,7 +12,7 @@ class UserRepository extends EntityRepository
         $em = $this->getEntityManager();
 
 
-        $query = $em->createQuery("SELECT d FROM App:User d WHERE :activiteitid MEMBER OF d.activiteiten");
+        $query = $em->createQuery('SELECT d FROM App:User d WHERE :activiteitid MEMBER OF d.activities');
 
         $query->setParameter('activiteitid', $activiteitid);
 

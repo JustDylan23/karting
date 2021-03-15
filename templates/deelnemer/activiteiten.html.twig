@@ -25,17 +25,17 @@
         {% for activiteit in beschikbare_activiteiten %}
         <tr>
             <td>
-                {{ activiteit.datum|date("d-m-Y")}}
+                {{ activiteit.date|date("d-m-Y")}}
             </td>
             <td>
-                {{ activiteit.tijd|date("H:i")}}
+                {{ activiteit.time|date("H:i")}}
             </td>
 
             <td>
-                {{ activiteit.soort.naam}}
+                {{ activiteit.activityType.name}}
             </td>
             <td>
-                &euro;{{ activiteit.soort.prijs|number_format(2,',','.')}}
+                &euro;{{ activiteit.activityType.price|number_format(2,',','.')}}
             </td>
             <td title="schrijf in voor activiteit">
 
@@ -66,17 +66,17 @@
         {% for activiteit in ingeschreven_activiteiten %}
             <tr>
                 <td>
-                    {{ activiteit.datum|date("d-m-Y")}}
+                    {{ activiteit.date|date("d-m-Y")}}
                 </td>
                 <td>
-                    {{ activiteit.tijd|date("H:i")}}
+                    {{ activiteit.time|date("H:i")}}
                 </td>
 
                 <td>
-                    {{ activiteit.soort.naam}}
+                    {{ activiteit.activityType.name}}
                 </td>
                 <td>
-                    &euro;{{ activiteit.soort.prijs|number_format(2,',','.')}}
+                    &euro;{{ activiteit.activityType.price|number_format(2,',','.')}}
                 </td>
                 <td title="schrijf in voor activiteit">
                     <a href="{{ path('uitschrijven', {'id':activiteit.id}) }}" >

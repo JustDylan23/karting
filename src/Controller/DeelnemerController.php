@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Activiteit;
+use App\Entity\Activity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,18 +14,18 @@ class DeelnemerController extends AbstractController
      */
     public function activiteitenAction(): Response
     {
-        $usr = $this->get('security.token_storage')->getToken()->getUser();
+        $user = $this->getUser();
 
         $beschikbareActiviteiten = $this->getDoctrine()
-            ->getRepository(Activiteit::class)
-            ->getBeschikbareActiviteiten($usr->getId());
+            ->getRepository(Activity::class)
+            ->getBeschikbareActiviteiten($user->getId());
 
         $ingeschrevenActiviteiten = $this->getDoctrine()
-            ->getRepository(Activiteit::class)
-            ->getIngeschrevenActiviteiten($usr->getId());
+            ->getRepository(Activity::class)
+            ->getIngeschrevenActiviteiten($user->getId());
 
         $totaal = $this->getDoctrine()
-            ->getRepository(Activiteit::class)
+            ->getRepository(Activity::class)
             ->getTotaal($ingeschrevenActiviteiten);
 
 
@@ -43,7 +43,7 @@ class DeelnemerController extends AbstractController
     {
 
         $activiteit = $this->getDoctrine()
-            ->getRepository(Activiteit::class)
+            ->getRepository(Activity::class)
             ->find($id);
         $usr = $this->get('security.token_storage')->getToken()->getUser();
         $usr->addActiviteit($activiteit);
@@ -61,12 +61,12 @@ class DeelnemerController extends AbstractController
     public function uitschrijvenActiviteitAction($id): Response
     {
         $activiteit = $this->getDoctrine()
-            ->getRepository(Activiteit::class)
+            ->getRepository(Activity::class)
             ->find($id);
-        $usr = $this->get('security.token_storage')->getToken()->getUser();
-        $usr->removeActiviteit($activiteit);
+        $user = $this->getUser();
+        $user->removeActiviteit($activiteit);
         $em = $this->getDoctrine()->getManager();
-        $em->persist($usr);
+        $em->persist($user);
         $em->flush();
         return $this->redirectToRoute('activiteiten');
     }
