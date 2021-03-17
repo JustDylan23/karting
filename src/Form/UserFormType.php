@@ -30,7 +30,8 @@ class UserFormType extends AbstractType
             ->add('postalCode')
             ->add('city')
             ->add('email')
-            ->add('phoneNumber');
+            ->add('phoneNumber')
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

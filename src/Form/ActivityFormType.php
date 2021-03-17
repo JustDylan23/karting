@@ -18,16 +18,21 @@ class ActivityFormType extends AbstractType
         $builder
             ->add('date', DateType::class, [
                 'attr' => ['class' => 'js-datepicker', 'placeholder' => 'dd-mm-yyyy'],
-                'widget' => 'single_text', 'html5' => false, 'format' => 'dd-MM-yyyy'
+                'widget' => 'single_text',
+                'html5' => false,
+                'format' => 'dd-MM-yyyy'
             ])
             ->add('time', TimeType::class, [
                 'attr' => ['class' => 'js-timepicker', 'placeholder' => 'hh:mm'],
-                'widget' => 'single_text', 'html5' => false,])
+                'widget' => 'single_text',
+                'html5' => false,
+            ])
             ->add('activityType', EntityType::class, [
                     'class' => ActivityType::class,
                     'choice_label' => 'naam',
                 ]
-            );
+            )
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

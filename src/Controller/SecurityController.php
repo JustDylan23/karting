@@ -22,9 +22,9 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-         if ($this->getUser()) {
-             return $this->redirectToRoute('homepage');
-         }
+        if ($this->getUser()) {
+            return $this->redirectToRoute('homepage');
+        }
 
         return $this->render('bezoeker/login.html.twig', [
             'last_username' => $authenticationUtils->getLastUsername(),
@@ -35,8 +35,13 @@ class SecurityController extends AbstractController
     /**
      * @Route("/registreren", name="registreren"): Response
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $entityManager, GuardAuthenticatorHandler $guardHandler, AppAuthenticator $authenticator)
-    {
+    public function register(
+        Request $request,
+        UserPasswordEncoderInterface $passwordEncoder,
+        EntityManagerInterface $entityManager,
+        GuardAuthenticatorHandler $guardHandler,
+        AppAuthenticator $authenticator
+    ): Response {
         $user = new User();
         $form = $this->createForm(UserFormType::class, $user);
         $form->add('save', SubmitType::class, ['label' => 'registreren']);

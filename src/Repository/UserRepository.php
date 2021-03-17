@@ -2,20 +2,14 @@
 
 namespace App\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use App\Entity\User;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 
-class UserRepository extends EntityRepository
+class UserRepository extends ServiceEntityRepository
 {
-
-    public function getDeelnemers($activiteitid)
+    public function __construct(ManagerRegistry $registry)
     {
-        $em = $this->getEntityManager();
-
-
-        $query = $em->createQuery('SELECT d FROM App:User d WHERE :activiteitid MEMBER OF d.activities');
-
-        $query->setParameter('activiteitid', $activiteitid);
-
-        return $query->getResult();
+        parent::__construct($registry, User::class);
     }
 }

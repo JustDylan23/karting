@@ -9,6 +9,9 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserFixtures extends Fixture
 {
+    public const USER_REFERENCE = 'test_user';
+    public const ADMIN_REFERENCE = 'test_admin';
+
     private UserPasswordEncoderInterface $userPasswordEncoder;
 
     public function __construct(UserPasswordEncoderInterface $userPasswordEncoder)
@@ -33,6 +36,8 @@ class UserFixtures extends Fixture
         $user->setCity('Woonplaats');
         $user->setPostalCode('1234AB');
 
+        $this->setReference(self::USER_REFERENCE, $user);
+
         $manager->persist($user);
         $manager->flush();
 
@@ -51,6 +56,8 @@ class UserFixtures extends Fixture
         $user->setAddress('Straatnaam 01');
         $user->setCity('Woonplaats');
         $user->setPostalCode('1234AB');
+
+        $this->setReference(self::ADMIN_REFERENCE, $user);
 
         $manager->persist($user);
         $manager->flush();
