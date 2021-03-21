@@ -43,6 +43,7 @@ class SecurityController extends AbstractController
         AppAuthenticator $authenticator
     ): Response {
         $user = new User();
+        $user->setRoles(["ROLE_USER"]);
         $form = $this->createForm(UserFormType::class, $user);
         $form->add('save', SubmitType::class, ['label' => 'registreren']);
         $form->handleRequest($request);

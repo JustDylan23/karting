@@ -20,18 +20,11 @@ class Activity
     private $id;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      *
      * @Assert\NotBlank(message="vul een datum in")
      */
-    private $date;
-
-    /**
-     * @ORM\Column(type="time")
-     *
-     * @Assert\NotBlank(message="vul een tijd in")
-     */
-    private $time;
+    private $datetime;
 
     /**
      * @ORM\ManyToOne(targetEntity=ActivityType::class, inversedBy="activities")
@@ -56,26 +49,14 @@ class Activity
         return $this->id;
     }
 
-    public function getDate(): ?DateTimeInterface
+    public function getDatetime(): ?DateTimeInterface
     {
-        return $this->date;
+        return $this->datetime;
     }
 
-    public function setDate(DateTimeInterface $date): self
+    public function setDatetime(DateTimeInterface $datetime): self
     {
-        $this->date = $date;
-
-        return $this;
-    }
-
-    public function getTime(): ?DateTimeInterface
-    {
-        return $this->time;
-    }
-
-    public function setTime(DateTimeInterface $time): self
-    {
-        $this->time = $time;
+        $this->datetime = $datetime;
 
         return $this;
     }

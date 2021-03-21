@@ -17,41 +17,40 @@ class ActivityRepository extends ServiceEntityRepository
     public function getAvailableActivities($userid): array
     {
         return $this->createQueryBuilder('a')
-                    ->leftJoin('a.users', 'u', Join::WITH, 'u.id = :userid')
-                    ->where('u.id IS NULL')
-                    ->setParameter('userid', $userid)
-                    ->orderBy('a.date')
-                    ->getQuery()
-                    ->getResult()
-            ;
+            ->leftJoin('a.users', 'u', Join::WITH, 'u.id = :userid')
+            ->andWhere('u.id IS NULL')
+            ->andWhere('a.datetime >= CURRENT_TIME()')
+            ->setParameter('userid', $userid)
+            ->orderBy('a.datetime')
+            ->getQuery()
+            ->getResult();
     }
 
     public function getRegisteredActivities($userid): array
     {
         return $this->createQueryBuilder('a')
-                    ->join('a.users', 'u')
-                    ->where('u.id = :userid')
-                    ->setParameter('userid', $userid)
-                    ->join('a.activityType', 't')
-                    ->addSelect('partial t.{id,price}')
-                    ->orderBy('a.date')
-                    ->getQuery()
-                    ->getResult()
-            ;
+            ->join('a.users', 'u')
+            ->andWhere('u.id = :userid')
+            ->andWhere('a.datetime >= CURRENT_TIME()')
+            ->setParameter('userid', $userid)
+            ->join('a.activityType', 't')
+            ->addSelect('partial t.{id,price}')
+            ->orderBy('a.datetime')
+            ->getQuery()
+            ->getResult();
     }
 
 
     public function findAll(): array
     {
-        return $this->findBy([], ['date' => 'ASC']);
+        return $this->findBy([], ['datetime' => 'ASC']);
     }
 
     public function getTotalActivities(): int
     {
         return $this->createQueryBuilder('a')
-                    ->select('COUNT(a.id)')
-                    ->getQuery()
-                    ->getSingleScalarResult()
-            ;
+            ->select('COUNT(a.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 }

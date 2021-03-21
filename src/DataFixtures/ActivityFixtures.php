@@ -14,32 +14,28 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
         $activity = new Activity();
         $activity
             ->setActivityType($this->getReference(ActivityTypeFixtures::ACTIVITY_1))
-            ->setDate(new \DateTime())
-            ->setTime(new \DateTime())
+            ->setDatetime(new \DateTime())
         ;
         $manager->persist($activity);
 
         $activity = new Activity();
         $activity
             ->setActivityType($this->getReference(ActivityTypeFixtures::ACTIVITY_2))
-            ->setDate(new \DateTime())
-            ->setTime(new \DateTime())
+            ->setDatetime(new \DateTime())
         ;
         $manager->persist($activity);
 
         $activity = new Activity();
         $activity
             ->setActivityType($this->getReference(ActivityTypeFixtures::ACTIVITY_3))
-            ->setDate(new \DateTime())
-            ->setTime(new \DateTime())
+            ->setDatetime(new \DateTime())
         ;
         $manager->persist($activity);
 
         $activity = new Activity();
         $activity
             ->setActivityType($this->getReference(ActivityTypeFixtures::ACTIVITY_4))
-            ->setDate(new \DateTime())
-            ->setTime(new \DateTime())
+            ->setDatetime(new \DateTime())
         ;
         $manager->persist($activity);
 

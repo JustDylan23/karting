@@ -29,7 +29,7 @@ class EmployeeController extends AbstractController
      */
     public function details(
         Activity $activity,
-        ActivityRepository $activityRepository,
+        ActivityRepository $activityRepository
     ): Response {
         return $this->render('medewerker/details.html.twig', [
             'activiteit' => $activity,

@@ -5,8 +5,6 @@
     <li><a href="{{ path('beheer') }}"><span class="badge">{{ aantal }}</span>beheer</a></li>
 {% endblock %}
 {% block content %}
-
-
     <section >
         <table class="table table-bordered" style="table-layout: fixed">
             <caption>Activiteit</caption>
@@ -16,13 +14,8 @@
             </tr>
             <tr>
                 <td>datum:</td>
-                <td>{{ activiteit.date|date("d-m-Y")}} </td>
+                <td>{{ activiteit.datetime|date("h:i d-m-Y")}} </td>
             </tr>
-            <tr >
-                <td>tijd:</td>
-                <td>{{ activiteit.time|date("h:i")}}</td>
-            </tr>
-
 
         </table>
         {%  if deelnemers|length > 0 %}

@@ -11,7 +11,6 @@
             <thead>
             <tr>
                 <td>datum</td>
-                <td>Tijd</td>
                 <td>soort activiteit</td>
                 <td>deelnemers</td>
                 <td>bewerken</td>
@@ -22,12 +21,8 @@
             {% for activiteit in activiteiten %}
                 <tr>
                     <td>
-                        {{ activiteit.date|date("d-m-Y")}}
+                        {{ activiteit.datetime|date("H:i d-m-Y")}}
                     </td>
-                    <td>
-                        {{ activiteit.time|date("H:i")}}
-                    </td>
-
                     <td>
                         {{ activiteit.activityType.name}}
                     </td>
