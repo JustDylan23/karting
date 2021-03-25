@@ -92,7 +92,7 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator
         }
 
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            return new RedirectResponse($this->urlGenerator->generate('activityOverview'));
+            return new RedirectResponse($this->urlGenerator->generate('activiteitenoverzicht'));
         }
         if ($this->authorizationChecker->isGranted('ROLE_USER')) {
             return new RedirectResponse($this->urlGenerator->generate('activiteiten'));

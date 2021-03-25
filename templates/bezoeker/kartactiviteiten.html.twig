@@ -6,14 +6,32 @@
     <li><a href="#">contact</a></li>
 {% endblock %}
 {% block content %}
-    <section >
+    <section>
         <article>
-            <h3>Er zijn {{ soortactiviteiten|length }} soorten activiteiten </h3>
-            <ul class="list-group">
+            <h3>Er zijn {{ soortactiviteiten|length }} soorten activiteiten</h3>
+            <div class="panel-group" id="accordion" role="tablist">
+                {% set first = true %}
                 {% for activiteit in soortactiviteiten %}
-                <li class="list-group-item text-primary">{{ activiteit.name }}</li>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion"
+                                   href="#collapse-{{ activiteit.id }}">
+                                    {{ activiteit.name }}
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse-{{ activiteit.id }}" class="panel-collapse collapse{{ first ? ' in' }}" role="tabpanel">
+                            <div class="panel-body">
+                                <div>Prijs: &euro;{{ activiteit.price }}</div>
+                                <div>Tijdsduur: {{ activiteit.duration }} minuten</div>
+                                <div>Minimum leeftijd: {{ activiteit.minAge }} jaar</div>
+                            </div>
+                        </div>
+                    </div>
+                    {% set first = false %}
                 {% endfor %}
-            </ul>
+            </div>
             <p>
                 Let op, voor het karten zijn dichte schoenen verplicht.
                 Karten met een korte broek is niet toegestaan. Wij hebben overalls ter beschikking,
@@ -21,7 +39,7 @@
             </p>
         </article>
         <figure>
-            <img class="img-responsive center-block" style="width:30%"src={{ asset('img/kart.jpg') }} alt="kart" />
+            <img class="img-responsive center-block" style="width:30%" src={{ asset('img/kart.jpg') }} alt="kart"/>
         </figure>
     </section>
 {% endblock %}
