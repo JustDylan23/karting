@@ -23,6 +23,7 @@
                         </div>
                         <div id="collapse-{{ activiteit.id }}" class="panel-collapse collapse{{ first ? ' in' }}" role="tabpanel">
                             <div class="panel-body">
+                                <div>Beschrijving: {{ activiteit.description is null ? '-' : activiteit.description }}</div>
                                 <div>Prijs: &euro;{{ activiteit.price }}</div>
                                 <div>Tijdsduur: {{ activiteit.duration }} minuten</div>
                                 <div>Minimum leeftijd: {{ activiteit.minAge }} jaar</div>

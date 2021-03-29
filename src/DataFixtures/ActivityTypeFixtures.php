@@ -12,6 +12,8 @@ class ActivityTypeFixtures extends Fixture
     public const ACTIVITY_2 = 'activity-2';
     public const ACTIVITY_3 = 'activity-3';
     public const ACTIVITY_4 = 'activity-4';
+    public const ACTIVITY_5 = 'activity-5';
+    public const ACTIVITY_6 = 'activity-6';
 
     public function load(ObjectManager $manager): void
     {
@@ -53,6 +55,28 @@ class ActivityTypeFixtures extends Fixture
             ->setPrice(18)
         ;
         $this->setReference(self::ACTIVITY_4, $activityType);
+        $manager->persist($activityType);
+
+        $activityType = new ActivityType();
+        $activityType
+            ->setName('Senioren race')
+            ->setDescription('Zo veel mogelijk rondjes rijden')
+            ->setMinAge(45)
+            ->setDuration(30)
+            ->setPrice(15.5)
+        ;
+        $this->setReference(self::ACTIVITY_5, $activityType);
+        $manager->persist($activityType);
+
+        $activityType = new ActivityType();
+        $activityType
+            ->setName('Duo race')
+            ->setDescription('Deelnemers worden aan elkaar gekoppeld. De langzaamste deelnemer bepaald de positie op de scorelijst')
+            ->setMinAge(16)
+            ->setDuration(45)
+            ->setPrice(20)
+        ;
+        $this->setReference(self::ACTIVITY_6, $activityType);
         $manager->persist($activityType);
 
         $manager->flush();

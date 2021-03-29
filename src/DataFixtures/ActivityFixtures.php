@@ -13,6 +13,7 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
     {
         $activity = new Activity();
         $activity
+            ->setMaxRegistrations(6)
             ->setActivityType($this->getReference(ActivityTypeFixtures::ACTIVITY_1))
             ->setDatetime(new \DateTime())
         ;
@@ -20,6 +21,7 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
 
         $activity = new Activity();
         $activity
+            ->setMaxRegistrations(10)
             ->setActivityType($this->getReference(ActivityTypeFixtures::ACTIVITY_2))
             ->setDatetime(new \DateTime())
         ;
@@ -27,6 +29,7 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
 
         $activity = new Activity();
         $activity
+            ->setMaxRegistrations(8)
             ->setActivityType($this->getReference(ActivityTypeFixtures::ACTIVITY_3))
             ->setDatetime(new \DateTime())
         ;
@@ -34,7 +37,24 @@ class ActivityFixtures extends Fixture implements DependentFixtureInterface
 
         $activity = new Activity();
         $activity
+            ->setMaxRegistrations(10)
             ->setActivityType($this->getReference(ActivityTypeFixtures::ACTIVITY_4))
+            ->setDatetime(new \DateTime())
+        ;
+        $manager->persist($activity);
+
+        $activity = new Activity();
+        $activity
+            ->setMaxRegistrations(6)
+            ->setActivityType($this->getReference(ActivityTypeFixtures::ACTIVITY_5))
+            ->setDatetime(new \DateTime())
+        ;
+        $manager->persist($activity);
+
+        $activity = new Activity();
+        $activity
+            ->setMaxRegistrations(2)
+            ->setActivityType($this->getReference(ActivityTypeFixtures::ACTIVITY_6))
             ->setDatetime(new \DateTime())
         ;
         $manager->persist($activity);

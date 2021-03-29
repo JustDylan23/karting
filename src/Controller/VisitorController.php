@@ -18,9 +18,7 @@ class VisitorController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('bezoeker/index.html.twig', [
-            'boodschap' => 'Welkom',
-        ]);
+        return $this->render('vue_base.html.twig');
     }
 
     /**

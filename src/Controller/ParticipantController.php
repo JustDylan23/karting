@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Activity;
 use App\Repository\ActivityRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,8 +40,9 @@ class ParticipantController extends AbstractController
      */
     public function createRegistration(Activity $activity, EntityManagerInterface $entityManager): Response
     {
-
-        $this->getUser()->addActivity($activity);
+        if ($activity->getMaxRegistrations() > $activity->getTotalUsers() && $activity->getDatetime() > new DateTime()) {
+            $activity->addUser($this->getUser());
+        }
         $entityManager->flush();
 
         return $this->redirectToRoute('activiteiten');

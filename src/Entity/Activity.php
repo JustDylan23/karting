@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use App\Entity\Interfaces\MaxCountInterface;
 use App\Repository\ActivityRepository;
+use App\Validator\MaxCount;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -12,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=ActivityRepository::class)
  */
-class Activity
+class Activity implements MaxCountInterface
 {
     /**
      * @ORM\Id @ORM\GeneratedValue @ORM\Column(type="integer")
@@ -36,8 +38,15 @@ class Activity
 
     /**
      * @ORM\ManyToMany(targetEntity=User::class, mappedBy="activities")
+     *
+     * @MaxCount
      */
     private $users;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $maxRegistrations;
 
     public function __construct()
     {
@@ -98,6 +107,33 @@ class Activity
         }
 
         return $this;
+    }
+
+    public function getTotalUsers(): int
+    {
+        return $this->getUsers()->count();
+    }
+
+    public function __toString(): string
+    {
+        return $this->getActivityType() . ' - ' . $this->getDatetime()->format('Y-m-d H:i:s');
+    }
+
+    public function getMaxRegistrations(): ?int
+    {
+        return $this->maxRegistrations;
+    }
+
+    public function setMaxRegistrations(int $maxRegistrations): self
+    {
+        $this->maxRegistrations = $maxRegistrations;
+
+        return $this;
+    }
+
+    public function getMaxCount(): int
+    {
+        return $this->getMaxRegistrations();
     }
 }
 

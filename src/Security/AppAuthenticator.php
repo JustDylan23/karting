@@ -87,18 +87,11 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey): Response
     {
-        if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
-            return new RedirectResponse($targetPath);
-        }
-
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            return new RedirectResponse($this->urlGenerator->generate('activiteitenoverzicht'));
-        }
-        if ($this->authorizationChecker->isGranted('ROLE_USER')) {
-            return new RedirectResponse($this->urlGenerator->generate('activiteiten'));
+            return new RedirectResponse($this->urlGenerator->generate('sonata_admin_dashboard'));
         }
 
-        return new RedirectResponse($this->urlGenerator->generate('homepage'));
+        return new RedirectResponse($this->urlGenerator->generate('activiteiten'));
     }
 
     protected function getLoginUrl(): string

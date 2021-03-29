@@ -20,13 +20,14 @@ class User implements UserInterface
 {
     /**
      * @Assert\Length(max=30)
-     * @Assert\NotBlank(message="vul wachtwoord in")
      */
     public $plainPassword;
+
     /**
      * @ORM\Id @ORM\GeneratedValue @ORM\Column(type="integer")
      */
     private $id;
+
     /**
      * @ORM\Column(type="string", length=25, unique=true)
      *
@@ -34,10 +35,12 @@ class User implements UserInterface
      * @Assert\Length(max="25")
      */
     private $username;
+
     /**
      * @ORM\Column(type="string")
      */
     private $password;
+
     /**
      * @ORM\Column(type="string", length=60, unique=false)
      *
@@ -45,6 +48,7 @@ class User implements UserInterface
      * @Assert\NotBlank(message="vul emailadres in")
      */
     private $email;
+
     /**
      * @ORM\Column(type="json")
      */
@@ -156,8 +160,9 @@ class User implements UserInterface
         return null;
     }
 
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
+//        $this->plainPassword = null;
     }
 
     public function getEmail(): ?string
@@ -295,5 +300,10 @@ class User implements UserInterface
         $this->activities->removeElement($activity);
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return (string)$this->getUsername();
     }
 }

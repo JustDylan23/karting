@@ -1,0 +1,26 @@
+{
+    "devDependencies": {
+        "@symfony/webpack-encore": "^1.0.0",
+        "core-js": "^3.0.0",
+        "regenerator-runtime": "^0.13.2",
+        "sass": "^1.32.8",
+        "sass-loader": "^11.0.0",
+        "vue": "^2.6.12",
+        "vue-loader": "^15.9.5",
+        "vue-template-compiler": "^2.6.12",
+        "webpack-notifier": "^1.6.0"
+    },
+    "license": "UNLICENSED",
+    "private": true,
+    "scripts": {
+        "dev-server": "encore dev-server",
+        "dev": "encore dev",
+        "watch": "encore dev --watch",
+        "build": "encore production --progress"
+    },
+    "dependencies": {
+        "bootstrap": "^4.6.0",
+        "bootstrap-vue": "^2.21.2",
+        "vue-router": "^3.5.1"
+    }
+}

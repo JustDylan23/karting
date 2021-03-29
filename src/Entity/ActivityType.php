@@ -45,6 +45,11 @@ class ActivityType
      */
     private $activities;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $description;
+
     public function __construct()
     {
         $this->activities = new ArrayCollection();
@@ -129,6 +134,23 @@ class ActivityType
                 $activity->setActivityType(null);
             }
         }
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return (string)$this->getName();
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }
