@@ -10,26 +10,33 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class VisitorController extends AbstractController
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/{routes}", name="homepage")
      */
-    public function index(): Response
+    public function index($routes = null): Response
     {
         return $this->render('vue_base.html.twig');
     }
 
     /**
-     * @Route("/kartactiviteiten", name="kartactiviteiten")
+     * @Route("/api/activities")
      */
-    public function activities(ActivityTypeRepository $activityTypeRepository): Response
-    {
-        return $this->render('bezoeker/kartactiviteiten.html.twig', [
-            'boodschap' => 'Welkom',
-            'soortactiviteiten' => $activityTypeRepository->findAll(),
-        ]);
+    public function activitiesApi(
+        ActivityTypeRepository $activityTypeRepository,
+        SerializerInterface $serializer
+    ): Response {
+        return $this->json($serializer->normalize($activityTypeRepository->findAll(), null, ['attributes' => [
+            'id',
+            'name',
+            'minAge',
+            'duration',
+            'price',
+            'description',
+        ]]));
     }
 
     /**

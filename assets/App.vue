@@ -13,9 +13,9 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item href="#" active>Home</b-nav-item>
-          <b-nav-item href="#">Aanbod</b-nav-item>
-          <b-nav-item href="#">Registreren</b-nav-item>
+          <b-nav-item :to="{ name: 'home' }">Home</b-nav-item>
+          <b-nav-item :to="{ name: 'offerings' }">Aanbod</b-nav-item>
+          <b-nav-item href="/registreren">Registreren</b-nav-item>
           <b-nav-item href="#">Contact</b-nav-item>
         </b-navbar-nav>
 
@@ -25,11 +25,12 @@
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
-    <img class="w-100" src="/img/kart-wide.jpg"/>
-    <div>ROUTER VIEW</div>
+    <img class="w-100 mb-3" src="/img/kart-wide.jpg"/>
+    <router-view></router-view>
     <hr>
     <footer class="d-flex">
-      <p class="text-muted text-center flex-grow-1">&copy;afdeling applicatieontwikkelaar Tinwerf 10, 2544 ED Den Haag. Telefoon:088
+      <p class="text-muted text-center flex-grow-1">&copy;afdeling applicatieontwikkelaar Tinwerf 10, 2544 ED Den Haag.
+        Telefoon:088
         666 3600</p>
       <div>
         <img class="img-thumbnail" width="40" style="margin-top: -10px;margin-bottom: 10px" src="img/linkedin.jpg"/>
@@ -47,5 +48,7 @@ export default {
 </script>
 
 <style scoped>
-
+.router-link-exact-active {
+  color: black;
+}
 </style>

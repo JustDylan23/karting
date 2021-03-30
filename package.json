@@ -19,6 +19,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "axios": "^0.21.1",
         "bootstrap": "^4.6.0",
         "bootstrap-vue": "^2.21.2",
         "vue-router": "^3.5.1"
