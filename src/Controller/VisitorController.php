@@ -19,7 +19,7 @@ class VisitorController extends AbstractController
      */
     public function index($routes = null): Response
     {
-        return $this->render('vue_base.html.twig');
+        return $this->render('vue_visitor.html.twig');
     }
 
     /**

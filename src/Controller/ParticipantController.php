@@ -13,6 +13,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class ParticipantController extends AbstractController
 {
     /**
+     * @Route("/user/activities")
+     */
+    public function activitiesVue()
+    {
+        return $this->render('vue_user.html.twig');
+    }
+    /**
      * @Route("/user/activiteiten", name="activiteiten")
      */
     public function activities(ActivityRepository $repository): Response

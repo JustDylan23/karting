@@ -15,14 +15,8 @@ class UserFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('username', TextType::class, [
-                'label' => 'Gebruikersnaam'
-            ])
-            ->add('plainPassword', RepeatedType::class, [
-                'type' => PasswordType::class,
-                'first_options' => ['label' => 'Wachtwoord'],
-                'second_options' => ['label' => 'Herhaal wachtwoord'],
-            ])
+            ->add('username')
+            ->add('plainPassword', PasswordType::class)
             ->add('initials')
             ->add('insertion')
             ->add('lastName')

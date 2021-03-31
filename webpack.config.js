@@ -21,7 +21,8 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
-    .addEntry('app', './assets/app.js')
+    .addEntry('app', './assets/app/app.js')
+    .addEntry('user', './assets/user/app.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
@@ -73,7 +74,9 @@ Encore
     // uncomment if you're having problems with a jQuery plugin
     //.autoProvidejQuery()
     .addAliases({
-        '@': path.resolve(__dirname, 'assets/'),
+        'App': path.resolve(__dirname, 'assets/app'),
+        'User': path.resolve(__dirname, 'assets/user'),
+        'Public': path.resolve(__dirname, 'public'),
     })
 ;
 

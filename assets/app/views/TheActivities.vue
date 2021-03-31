@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <h4>Er zijn 6 soorten activiteiten</h4>
-    <div class="accordion" role="tablist" v-if="activities">
+  <div v-if="activities">
+    <h4>Er zijn {{ activities.length }} soorten activiteiten</h4>
+    <div class="accordion" role="tablist">
       <b-card no-body class="mb-1" v-for="(activity, key) in activities" :key="key">
         <b-card-header header-tag="header" class="p-1" role="tab">
           <b-button block v-b-toggle="'accordion-' + activity.id" variant="light">{{ activity.name }}</b-button>

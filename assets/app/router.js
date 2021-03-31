@@ -10,12 +10,12 @@ const router = new VueRouter({
         {
             path: '/',
             name: 'home',
-            component: () => import('@/views/TheHome'),
+            component: () => import('App/views/TheHome'),
         },
         {
             path: '/activities',
-            name: 'offerings',
-            component: () => import('@/views/TheActivities'),
+            name: 'activities',
+            component: () => import('App/views/TheActivities'),
         },
     ],
 });
