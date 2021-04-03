@@ -16,7 +16,9 @@ class UserFormType extends AbstractType
     {
         $builder
             ->add('username')
-            ->add('plainPassword', PasswordType::class)
+            ->add('plainPassword', PasswordType::class, [
+                'required' => $options['data']->getId() === null
+            ])
             ->add('initials')
             ->add('insertion')
             ->add('lastName')

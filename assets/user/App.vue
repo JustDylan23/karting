@@ -13,15 +13,14 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item :to="{ name: 'home' }">Home</b-nav-item>
-          <b-nav-item :to="{ name: 'activities' }">Aanbod</b-nav-item>
-          <b-nav-item href="/registreren">Registreren</b-nav-item>
-          <b-nav-item href="#">Contact</b-nav-item>
+          <b-nav-item href="/">Home</b-nav-item>
+          <b-nav-item href="#" active>Mijn activiteiten</b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <b-nav-item href="#">Login</b-nav-item>
+          <b-nav-item href="/user/profile">{{ username }}'s profiel</b-nav-item>
+          <b-nav-item href="/logout">uitloggen</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -46,11 +45,16 @@ import ActivityTable from './ActivityTable';
 export default {
   name: 'App.vue',
   components: { ActivityTable },
+  computed: {
+    username() {
+      return window.user;
+    }
+  }
 };
 </script>
 
 <style scoped>
 .router-link-exact-active {
-  color: black;
+  color: black!important;
 }
 </style>

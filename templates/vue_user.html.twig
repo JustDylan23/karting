@@ -9,6 +9,7 @@
     {% block javascripts %}
         {{ encore_entry_script_tags('user') }}
     {% endblock %}
+    <script>window.user = '{{ app.user.username }}'</script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>

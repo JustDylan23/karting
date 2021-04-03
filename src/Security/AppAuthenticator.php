@@ -91,7 +91,7 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator
             return new RedirectResponse($this->urlGenerator->generate('sonata_admin_dashboard'));
         }
 
-        return new RedirectResponse($this->urlGenerator->generate('activiteiten'));
+        return new RedirectResponse($this->urlGenerator->generate('app_activities'));
     }
 
     protected function getLoginUrl(): string

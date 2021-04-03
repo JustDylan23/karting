@@ -13,15 +13,14 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item :to="{ name: 'home' }">Home</b-nav-item>
-          <b-nav-item :to="{ name: 'activities' }">Aanbod</b-nav-item>
-          <b-nav-item href="/registreren">Registreren</b-nav-item>
-          <b-nav-item href="#">Contact</b-nav-item>
+          <b-nav-item :to="{ name: 'home' }">home</b-nav-item>
+          <b-nav-item :to="{ name: 'activities' }">aanbod</b-nav-item>
+          <b-nav-item href="/registreren">registreren</b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <b-nav-item href="#">Login</b-nav-item>
+          <b-nav-item href="/login">inloggen</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -49,6 +48,6 @@ export default {
 
 <style scoped>
 .router-link-exact-active {
-  color: black;
+  color: black!important;
 }
 </style>

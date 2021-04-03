@@ -14,30 +14,43 @@ class ActivityRepository extends ServiceEntityRepository
         parent::__construct($registry, Activity::class);
     }
 
-    public function getAvailableActivities($userid): array
+    public function getAvailableActivities($userid)
     {
         return $this->createQueryBuilder('a')
-            ->leftJoin('a.users', 'u', Join::WITH, 'u.id = :userid')
-            ->andWhere('u.id IS NULL')
-            ->andWhere('a.datetime >= CURRENT_TIME()')
-            ->setParameter('userid', $userid)
-            ->orderBy('a.datetime')
-            ->getQuery()
-            ->getResult();
+                    ->select('a.id, a.datetime, a.maxRegistrations')
+                    ->leftJoin('a.users', 'u', Join::WITH, 'u.id = :userid')
+                    ->andWhere('u.id IS NULL')
+                    ->join('a.activityType', 'at')
+                    ->addSelect('at.price, at.name')
+                    ->leftJoin('a.users', 'uc')
+                    ->addSelect('COUNT(uc.id) as totalRegistrations')
+                    ->andWhere('a.datetime >= CURRENT_DATE()')
+                    ->setParameter('userid', $userid)
+                    ->having('a.maxRegistrations > totalRegistrations')
+                    ->orderBy('a.datetime')
+                    ->groupBy('a.id')
+                    ->getQuery()
+                    ->getResult()
+            ;
     }
 
     public function getRegisteredActivities($userid): array
     {
         return $this->createQueryBuilder('a')
-            ->join('a.users', 'u')
-            ->andWhere('u.id = :userid')
-            ->andWhere('a.datetime >= CURRENT_TIME()')
-            ->setParameter('userid', $userid)
-            ->join('a.activityType', 't')
-            ->addSelect('partial t.{id,price}')
-            ->orderBy('a.datetime')
-            ->getQuery()
-            ->getResult();
+                    ->select('a.id, a.datetime, a.maxRegistrations')
+                    ->join('a.users', 'u')
+                    ->andWhere('u.id = :userid')
+                    ->andWhere('a.datetime >= CURRENT_DATE()')
+                    ->setParameter('userid', $userid)
+                    ->join('a.activityType', 'at')
+                    ->addSelect('at.price, at.name')
+                    ->leftJoin('a.users', 'uc')
+                    ->addSelect('COUNT(uc.id) as totalRegistrations')
+                    ->orderBy('a.datetime')
+                    ->groupBy('a.id')
+                    ->getQuery()
+                    ->getResult()
+            ;
     }
 
 
@@ -49,8 +62,9 @@ class ActivityRepository extends ServiceEntityRepository
     public function getTotalActivities(): int
     {
         return $this->createQueryBuilder('a')
-            ->select('COUNT(a.id)')
-            ->getQuery()
-            ->getSingleScalarResult();
+                    ->select('COUNT(a.id)')
+                    ->getQuery()
+                    ->getSingleScalarResult()
+            ;
     }
 }
