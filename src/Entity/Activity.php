@@ -116,7 +116,7 @@ class Activity implements MaxCountInterface
 
     public function __toString(): string
     {
-        return $this->getActivityType() . ' - ' . $this->getDatetime()->format('Y-m-d H:i:s');
+        return $this->activityType . ' - ' . ($this->datetime === null ? 'no date set' : $this->datetime->format('Y-m-d H:i:s'));
     }
 
     public function getMaxRegistrations(): ?int

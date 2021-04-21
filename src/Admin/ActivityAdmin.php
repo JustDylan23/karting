@@ -42,8 +42,9 @@ final class ActivityAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $form): void
     {
         $form
+            ->add('activityType')
             ->add('datetime', DateTimeType::class, [
-                'widget' => 'single_text',
+            'widget' => 'single_text',
             ])
             ->add('maxRegistrations')
             ->add('users', ModelAutocompleteType::class, [
@@ -57,7 +58,9 @@ final class ActivityAdmin extends AbstractAdmin
     {
         $show
             ->add('id')
+            ->add('activityType')
             ->add('datetime')
+            ->add('maxRegistrations')
         ;
     }
 }
